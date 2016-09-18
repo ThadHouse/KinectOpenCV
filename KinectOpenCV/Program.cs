@@ -54,41 +54,48 @@ namespace KinectOpenCV
                 Thread.Sleep(Timeout.Infinite);
             }
         }
-
-        private static int count = 0;
-
+        // Data, bitmap and image stored to avoid lots of allocations
         private static byte[] data;
         private static Bitmap bitmap;
-        private static Mat displayMat = new Mat();
         private static Image<Bgr, byte> image;
-
+        // DisplayMat stored so we can always use the last image to display
+        private static Mat displayMat = new Mat();
         private static readonly object mutex = new object();
 
         private static void SensorFrameReady(object sender, ColorImageFrameReadyEventArgs e)
         {
             using (var frame = e.OpenColorImageFrame())
             {
-                Console.WriteLine(count);
-                count++;
-
-                if (frame == null) return;
-
-
-                lock (mutex)
+                if (frame == null)
                 {
+                    return;
+                }
+
+                bool lockTaken = false;
+                try
+                {
+                    Monitor.TryEnter(mutex, ref lockTaken);
+                    if (!lockTaken)
+                    {
+                        // Return if someone else already has the lock. OK to miss
+                        return;
+                    }
 
                     // Convert to OpenCV mat
                     using (var rawImage = frame.ToOpenCVMat(ref data, ref bitmap, ref image))
                     {
                         if (rawImage == null) return;
-                        using (Mat flipped = new Mat())
-                        {
-                            CvInvoke.Flip(rawImage, displayMat, FlipType.Horizontal);
-                        }
+                        CvInvoke.Flip(rawImage, displayMat, FlipType.Horizontal);
                     }
 
                     CvInvoke.Imshow("Image", displayMat);
-
+                }
+                finally
+                {
+                    if (lockTaken)
+                    {
+                        Monitor.Exit(mutex);
+                    }
                 }
                 CvInvoke.WaitKey(1);
             }

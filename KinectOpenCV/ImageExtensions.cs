@@ -21,7 +21,7 @@ namespace KinectOpenCV
 
         public static Mat ToOpenCVMat(this ColorImageFrame image, ref byte[] data, ref Bitmap bitmap, ref Image<Bgr, byte> cvImage)
         {
-
+            // convert color image to data array
             if (image == null || image.PixelDataLength == 0)
                 return null;
             if (data == null || data.Length < image.PixelDataLength)
@@ -34,13 +34,14 @@ namespace KinectOpenCV
                 bitmap = new Bitmap(image.Width, image.Height, PixelFormat.Format32bppRgb);
             }
 
-
+            // Copy data array to a bitmap
             var bitmapData = bitmap.LockBits(
                 new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
                 ImageLockMode.WriteOnly,
                 bitmap.PixelFormat);
             Marshal.Copy(data, 0, bitmapData.Scan0, data.Length);
             bitmap.UnlockBits(bitmapData);
+            // copy bitmap to OpenCV Image Object
             if (cvImage == null)
             {
                 cvImage = new Image<Bgr, byte>(bitmap);
@@ -49,12 +50,8 @@ namespace KinectOpenCV
             {
                 cvImage.Bitmap = bitmap;
             }
-
+            // Return Mat of OpenCV bitmap object
             return cvImage.Mat;
-
-            //var img = new Image<Bgr, byte>(bitmap);
-            return null;
-            //return new Image<Bgr, byte>(bitmap).Mat;
         }
     }
 }
