@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.1.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.1.1\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Emgu.CV.UI, Version=3.1.0.2282, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
       <HintPath>..\packages\EmguCV.3.1.0.1\lib\net30\Emgu.CV.UI.dll</HintPath>
       <Private>True</Private>
@@ -50,7 +54,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FRC.NetworkTables, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FRC.NetworkTables.3.0.0-beta-0060\lib\net46\FRC.NetworkTables.dll</HintPath>
+      <HintPath>..\packages\FRC.NetworkTables.3.0.0-beta-0091\lib\net46\FRC.NetworkTables.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Kinect, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -97,7 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImageExtensions.cs" />
+    <Compile Include="KinectNetworkSettings.cs" />
     <Compile Include="NetworkSettings.cs" />
+    <Compile Include="NetworkTableProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearcherBase.cs" />
@@ -107,6 +113,16 @@
     <None Include="App.config" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TankTracker.Base\TankTracker.Base.csproj">
+      <Project>{4708c05d-97c6-4d4f-9298-c374bfc5c696}</Project>
+      <Name>TankTracker.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TankTracker.Networking\TankTracker.Networking.csproj">
+      <Project>{4273df77-faeb-4829-9d7a-7d0ccbb603e5}</Project>
+      <Name>TankTracker.Networking</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

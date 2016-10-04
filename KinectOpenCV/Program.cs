@@ -15,6 +15,8 @@ using Microsoft.Kinect;
 using NetworkTables;
 using NetworkTables.Tables;
 using OpenTK;
+using TankTracker.Base.Structs;
+using TankTracker.Networking;
 using Vector3 = System.Numerics.Vector3;
 
 namespace KinectOpenCV
@@ -56,16 +58,43 @@ namespace KinectOpenCV
 
         static void Main(string[] args)
         {
-            NetworkTable.SetServerMode();
-            NetworkTable.Initialize();
-            table = NetworkTable.GetTable("OpenCV");
+            //NetworkTable.SetServerMode();
+            //NetworkTable.Initialize();
+            //table = NetworkTable.GetTable("OpenCV");
+
+            NetworkTableProvider provider = new NetworkTableProvider();
+            Settings settings = new Settings(provider);
+
+            const double defaultExposure = 22;
+            const double defaultContrast = 1.0;
+            const int defaultWhiteBalance = 2700;
+
+            const double minExposure = 0.0;
+            const double maxExposure = 40000;
+
+            const double minContrast = 0.5;
+            const double maxContrast = 2.0;
+
+            const int minWhiteBalance = 2700;
+            const int maxWhiteBalance = 6500;
+
+            settings.SetupContrast(new NetworkedValue<double>(minContrast, maxContrast, defaultContrast));
+            settings.SetupExposureTime(new NetworkedValue<double>(minExposure, maxExposure, defaultExposure));
+            settings.SetupWhiteBalance(new NetworkedValue<int>(minWhiteBalance, maxWhiteBalance, defaultWhiteBalance));
+
+            Thread.Sleep(Timeout.Infinite);
+
+            GC.KeepAlive(settings);
+            GC.KeepAlive(provider);
+            /*
+            table = provider.GetRootTable.GetSubTable("OpenCV");
 
             table.SetDefaultNumberArray(HSVLow, defaultLow);
             table.SetDefaultNumberArray(HSVHigh, defaultHigh);
 
-            table.SetDefaultNumber("exposure", 22);
+            //table.SetDefaultNumber("exposure", 22);
 
-            table.SetPersistent("exposure");
+            //table.SetPersistent("exposure");
 
             
 
@@ -111,12 +140,13 @@ namespace KinectOpenCV
             }
             else
             {
-                settings = new NetworkSettings(sensor.ColorStream.CameraSettings);
+                settings = new KinectNetworkSettings(provider, sensor.ColorStream.CameraSettings);
                 Thread.Sleep(Timeout.Infinite);
             }
+            */
         }
 
-        private static NetworkSettings settings;
+        private static KinectNetworkSettings settings;
 
         // Data, bitmap and image stored to avoid lots of allocations
         private static byte[] data;
@@ -152,21 +182,21 @@ namespace KinectOpenCV
                         return;
                     }
 
-                    double[] ntLow = table.GetNumberArray(HSVLow, defaultLow);
-                    double[] ntHigh = table.GetNumberArray(HSVHigh, defaultHigh);
+                    var ntLow = table.GetNumberArray(HSVLow, defaultLow);
+                    var ntHigh = table.GetNumberArray(HSVHigh, defaultHigh);
 
                     double localMinSize = table.GetNumber(nameof(minSize), minSize);
                     double localMaxSize = table.GetNumber(nameof(maxSize), maxSize);
 
-                    if (ntLow.Length != 3)
+                    if (ntLow.Count != 3)
                         ntLow = defaultLow;
-                    if (ntHigh.Length != 3)
+                    if (ntHigh.Count != 3)
                         ntHigh = defaultHigh;
 
                     arrayLow.Clear();
-                    arrayLow.Push(ntLow);
+                    arrayLow.Push(ntLow.ToArray());
                     arrayHigh.Clear();
-                    arrayHigh.Push(ntHigh);
+                    arrayHigh.Push(ntHigh.ToArray());
 
                     // Convert to OpenCV mat
                     using (var rawImage = frame.ToOpenCVMat(ref data, ref bitmap, ref image))

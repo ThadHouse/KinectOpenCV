@@ -61,21 +61,23 @@ namespace KinectOpenCV
         {
             if (rawImage == null) return null;
 
-            double[] ntLow = table.GetNumberArray(HSVLow, defaultLow);
-            double[] ntHigh = table.GetNumberArray(HSVHigh, defaultHigh);
+            return null;
+
+            var ntLow = table.GetNumberArray(HSVLow, defaultLow);
+            var ntHigh = table.GetNumberArray(HSVHigh, defaultHigh);
 
             double localMinSize = table.GetNumber(minSize, defaultMinSize);
             double localMaxSize = table.GetNumber(maxSize, defaultMaxSize);
 
-            if (ntLow.Length != 3)
+            if (ntLow.Count != 3)
                 ntLow = defaultLow;
-            if (ntHigh.Length != 3)
+            if (ntHigh.Count != 3)
                 ntHigh = defaultHigh;
 
             arrayLow.Clear();
-            arrayLow.Push(ntLow);
+            arrayLow.Push(ntLow.ToArray());
             arrayHigh.Clear();
-            arrayHigh.Push(ntHigh);
+            arrayHigh.Push(ntHigh.ToArray());
 
             using (var temp = new Mat())
 

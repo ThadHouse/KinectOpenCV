@@ -25,6 +25,6 @@ namespace KinectOpenCV
             table = NetworkTable.GetTable(tablePrefix);
         }
 
-        public abstract TrackedRobot FindTarget(Mat rawImage);
+        public abstract TrackedRobot? FindTarget(Mat rawImage);
     }
 }

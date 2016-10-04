@@ -9,6 +9,7 @@ using NetworkTables.Tables;
 
 namespace KinectOpenCV
 {
+    /*
     public class NetworkSettings
     {
         private ColorCameraSettings settings;
@@ -114,4 +115,5 @@ namespace KinectOpenCV
 
 
     }
+    */
 }

@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectOpenCV", "KinectOpenCV\KinectOpenCV.csproj", "{2BEC583E-4822-4823-A6E8-68EE6B065AAD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TankTracker.Base", "TankTracker.Base\TankTracker.Base.csproj", "{4708C05D-97C6-4D4F-9298-C374BFC5C696}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TankTracker.Networking", "TankTracker.Networking\TankTracker.Networking.csproj", "{4273DF77-FAEB-4829-9D7A-7D0CCBB603E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{2BEC583E-4822-4823-A6E8-68EE6B065AAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BEC583E-4822-4823-A6E8-68EE6B065AAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BEC583E-4822-4823-A6E8-68EE6B065AAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4708C05D-97C6-4D4F-9298-C374BFC5C696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4708C05D-97C6-4D4F-9298-C374BFC5C696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4708C05D-97C6-4D4F-9298-C374BFC5C696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4708C05D-97C6-4D4F-9298-C374BFC5C696}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4273DF77-FAEB-4829-9D7A-7D0CCBB603E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4273DF77-FAEB-4829-9D7A-7D0CCBB603E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4273DF77-FAEB-4829-9D7A-7D0CCBB603E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4273DF77-FAEB-4829-9D7A-7D0CCBB603E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
