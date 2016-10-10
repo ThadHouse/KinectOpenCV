@@ -30,7 +30,7 @@ namespace KinectOpenCV
         VectorOfDouble arrayHigh = new VectorOfDouble(3);
 
         static readonly double[] defaultLow = new double[] { 50, 44, 193 };
-        static readonly double[] defaultHigh = new double[] { 90, 255, 255 };
+        static readonly double[] defaultHigh = new double[] { 150, 255, 255 };
 
         private const double defaultMaxSize = 500;
         private const double defaultMinSize = 100;
@@ -38,7 +38,7 @@ namespace KinectOpenCV
 
         public TriangleColorSearch(string tablePrefix) : base(tablePrefix)
         {
-
+            /*
             table.SetDefaultNumberArray(HSVLow, defaultLow);
             table.SetDefaultNumberArray(HSVHigh, defaultHigh);
 
@@ -50,6 +50,7 @@ namespace KinectOpenCV
 
             table.SetPersistent(minSize);
             table.SetPersistent(maxSize);
+            */
         }
 
         private Mat HsvDisplay = new Mat();
@@ -57,21 +58,21 @@ namespace KinectOpenCV
         private VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
 
         // Will already be flipped
-        public override TrackedRobot? FindTarget(Mat rawImage)
+        public override TrackedRobot? FindTarget(Mat rawImage, double[] ntLow, double[] ntHigh)
         {
             if (rawImage == null) return null;
 
             return null;
 
-            var ntLow = table.GetNumberArray(HSVLow, defaultLow);
-            var ntHigh = table.GetNumberArray(HSVHigh, defaultHigh);
+            //var ntLow = table.GetNumberArray(HSVLow, defaultLow);
+            //var ntHigh = table.GetNumberArray(HSVHigh, defaultHigh);
 
             double localMinSize = table.GetNumber(minSize, defaultMinSize);
             double localMaxSize = table.GetNumber(maxSize, defaultMaxSize);
 
-            if (ntLow.Count != 3)
+            if (ntLow.Length != 3)
                 ntLow = defaultLow;
-            if (ntHigh.Count != 3)
+            if (ntHigh.Length != 3)
                 ntHigh = defaultHigh;
 
             arrayLow.Clear();

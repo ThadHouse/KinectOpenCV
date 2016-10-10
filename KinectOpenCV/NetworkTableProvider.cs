@@ -22,7 +22,6 @@ namespace KinectOpenCV
             independentNtCore.UpdateRate = 50;
 
             independentNetworkTable = new IndependentNetworkTable(independentNtCore, "KinectOpenCv");
-            Console.WriteLine(independentNetworkTable.IsServer);
         }
 
 

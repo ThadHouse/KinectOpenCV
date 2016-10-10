@@ -54,7 +54,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FRC.NetworkTables, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FRC.NetworkTables.3.0.0-beta-0091\lib\net46\FRC.NetworkTables.dll</HintPath>
+      <HintPath>..\packages\FRC.NetworkTables.3.0.0-beta-0100\lib\net46\FRC.NetworkTables.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Kinect, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />

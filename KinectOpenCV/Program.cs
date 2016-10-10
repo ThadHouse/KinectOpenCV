@@ -58,11 +58,12 @@ namespace KinectOpenCV
 
         static void Main(string[] args)
         {
+            /*
             //NetworkTable.SetServerMode();
             //NetworkTable.Initialize();
             //table = NetworkTable.GetTable("OpenCV");
 
-            NetworkTableProvider provider = new NetworkTableProvider();
+
             Settings settings = new Settings(provider);
 
             const double defaultExposure = 22;
@@ -81,12 +82,9 @@ namespace KinectOpenCV
             settings.SetupContrast(new NetworkedValue<double>(minContrast, maxContrast, defaultContrast));
             settings.SetupExposureTime(new NetworkedValue<double>(minExposure, maxExposure, defaultExposure));
             settings.SetupWhiteBalance(new NetworkedValue<int>(minWhiteBalance, maxWhiteBalance, defaultWhiteBalance));
+            */
 
-            Thread.Sleep(Timeout.Infinite);
-
-            GC.KeepAlive(settings);
-            GC.KeepAlive(provider);
-            /*
+            NetworkTableProvider provider = new NetworkTableProvider();
             table = provider.GetRootTable.GetSubTable("OpenCV");
 
             table.SetDefaultNumberArray(HSVLow, defaultLow);
@@ -141,9 +139,12 @@ namespace KinectOpenCV
             else
             {
                 settings = new KinectNetworkSettings(provider, sensor.ColorStream.CameraSettings);
+
+
                 Thread.Sleep(Timeout.Infinite);
+
+                GC.KeepAlive(settings);
             }
-            */
         }
 
         private static KinectNetworkSettings settings;
@@ -188,15 +189,15 @@ namespace KinectOpenCV
                     double localMinSize = table.GetNumber(nameof(minSize), minSize);
                     double localMaxSize = table.GetNumber(nameof(maxSize), maxSize);
 
-                    if (ntLow.Count != 3)
+                    if (ntLow.Length != 3)
                         ntLow = defaultLow;
-                    if (ntHigh.Count != 3)
+                    if (ntHigh.Length != 3)
                         ntHigh = defaultHigh;
 
                     arrayLow.Clear();
-                    arrayLow.Push(ntLow.ToArray());
+                    arrayLow.Push(ntLow);
                     arrayHigh.Clear();
-                    arrayHigh.Push(ntHigh.ToArray());
+                    arrayHigh.Push(ntHigh);
 
                     // Convert to OpenCV mat
                     using (var rawImage = frame.ToOpenCVMat(ref data, ref bitmap, ref image))

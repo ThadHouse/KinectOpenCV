@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FRC.NetworkTables, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FRC.NetworkTables.3.0.0-beta-0091\lib\net46\FRC.NetworkTables.dll</HintPath>
+      <HintPath>..\packages\FRC.NetworkTables.3.0.0-beta-0100\lib\net46\FRC.NetworkTables.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Nito.AsyncEx.Coordination, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
